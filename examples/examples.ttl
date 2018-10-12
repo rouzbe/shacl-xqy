@@ -1,0 +1,96 @@
+# baseURI: http://www.example.com/ns
+# imports: http://www.w3.org/ns/shacl-xqy
+
+@prefix ex: <http://example.com/ns#> .
+@prefix fn: <http://www.w3.org/2005/xpath-functions#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix shacl-xqy: <http://www.w3.org/ns/shacl-xqy#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:JSMultiply
+  rdf:type sh:JSFunction ;
+  rdfs:label "JSFunction Example - Multiply"^^xsd:string ;
+  sh:jsFunctionName "multiply"^^xsd:string ;
+  sh:jsLibrary [
+      rdf:type sh:JSLibrary ;
+      sh:jsLibraryURL "../examples/JSFunctionExamples.sjs"^^xsd:anyURI ;
+    ] ;
+  sh:parameter [
+      rdf:type sh:Parameter ;
+      sh:path ex:op1 ;
+    ] ;
+  sh:parameter [
+      rdf:type sh:Parameter ;
+      sh:path ex:op2 ;
+    ] ;
+  sh:returnType xsd:decimal ;
+.
+ex:JSGetRandom
+  rdf:type sh:JSFunction ;
+  rdfs:label "JSFunction Example - GetRandom"^^xsd:string ;
+  sh:jsFunctionName "getRandom"^^xsd:string ;
+  sh:jsLibrary [
+      rdf:type sh:JSLibrary ;
+      sh:jsLibraryURL "../examples/JSFunctionExamples.sjs"^^xsd:anyURI ;
+    ] ;
+  sh:returnType xsd:decimal ;
+.
+ex:SPARQLMultiply
+  rdf:type sh:SPARQLFunction ;
+  rdfs:label "SPARQLFunction Example - Multiply"^^xsd:string ;
+  sh:parameter [
+      rdf:type sh:Parameter ;
+      sh:path ex:op1 ;
+    ] ;
+  sh:parameter [
+      rdf:type sh:Parameter ;
+      sh:path ex:op2 ;
+    ] ;
+  sh:returnType xsd:decimal ;
+  sh:select """SELECT ((?op1 * ?op2) AS ?result)
+WHERE {
+}"""^^xsd:string ;
+.
+ex:XQueryMultiply
+  rdf:type shacl-xqy:XQueryFunction ;
+  rdfs:label "XQueryFunction Example - Multiply"^^xsd:string ;
+  sh:jsFunctionName "ex:Multiply"^^xsd:string ;
+  sh:jsLibrary [
+      rdf:type sh:JSLibrary ;
+      sh:jsLibraryURL "../examples/XQueryFunctionExamples.xqy"^^xsd:anyURI ;
+    ] ;
+  sh:parameter [
+      rdf:type sh:Parameter ;
+      sh:path ex:op1 ;
+    ] ;
+  sh:parameter [
+      rdf:type sh:Parameter ;
+      sh:path ex:op2 ;
+    ] ;
+  sh:returnType xsd:decimal ;
+.
+ex:op1
+  rdf:type rdf:Property ;
+  rdfs:label "op1"^^xsd:string ;
+  rdfs:range xsd:decimal ;
+.
+ex:op2
+  rdf:type rdf:Property ;
+  rdfs:label "op2"^^xsd:string ;
+  rdfs:range xsd:decimal ;
+.
+<http://www.example.com/ns>
+  rdf:type owl:Ontology ;
+  owl:imports <http://www.w3.org/ns/shacl-xqy> ;
+  owl:versionInfo "Created with TopBraid Composer"^^xsd:string ;
+	sh:declare [
+		sh:prefix "ex" ;
+		sh:namespace "http://example.com/ns#"^^xsd:anyURI ;
+	] ;
+.
