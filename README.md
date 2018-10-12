@@ -77,7 +77,7 @@ Download [MLCP](https://docs.marklogic.com/guide/mlcp/install) and run the follo
 mlcp.sh import \
   -host localhost -port 8000 \
   -username ~USER~ -password ~PASS~ \
-  -database shacl-xqy-test-db
+  -database shacl-xqy-test-db \
   -input_file_path "~PATH~/resources/*.ttl","~PATH~/examples/examples.ttl" -input_file_type RDF \
   -mode local
 ```
