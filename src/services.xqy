@@ -58,7 +58,8 @@ declare function getPrefixDeclarations() {
     shacl-xqy:sparql(
       $shacl-queries:px || $shacl-queries:getPrefixDeclarations,
       map:new(),
-      false()
+      false(),
+      (), ()
     ) ! map:put($pxMap, map:get(., "prefix"), map:get(., "namespace"))
   return $pxMap
 };
