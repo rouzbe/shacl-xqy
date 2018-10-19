@@ -6,11 +6,11 @@ import module namespace shacl-apply = "shacl-apply"
 declare variable $shacl-apply := xdmp:function(xs:QName('shacl-apply:apply'));
 
 declare function shacl-xqy:sparql($query as xs:string) as item()* {
-  shacl-xqy:sparql($query, map:new(), (), ())
+  shacl-xqy:sparql($query, map:new())
 };
 
 declare function shacl-xqy:sparql($query as xs:string, $bindings as map:map) as item()* {
-  shacl-xqy:sparql($query, $bindings, true())
+  shacl-xqy:sparql($query, $bindings, true(), (), ())
 };
 
 declare function shacl-xqy:sparql(
