@@ -74,7 +74,7 @@ return
 Download [MLCP](https://docs.marklogic.com/guide/mlcp/install) and run the following commands. Make sure you replace `~PATH~` with the right path to the `shacl-xqy` folder and `~USER~` and `~PASS~` with your MarkLogic admin credentials:
 
 ```
-mlcp.sh import \
+sh mlcp.sh import \
   -host localhost -port 8000 \
   -username ~USER~ -password ~PASS~ \
   -database shacl-xqy-test-db \
