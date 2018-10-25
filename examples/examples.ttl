@@ -47,10 +47,12 @@ ex:SPARQLMultiply
   sh:parameter [
       rdf:type sh:Parameter ;
       sh:path ex:op1 ;
+      sh:datatype xsd:decimal ;
     ] ;
   sh:parameter [
       rdf:type sh:Parameter ;
       sh:path ex:op2 ;
+      sh:datatype xsd:decimal ;
     ] ;
   sh:returnType xsd:decimal ;
   sh:select """SELECT ((?op1 * ?op2) AS ?result)
