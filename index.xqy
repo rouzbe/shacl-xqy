@@ -1,11 +1,5 @@
-import module namespace json = "http://marklogic.com/xdmp/json"
-at "/MarkLogic/json/json.xqy";
 import module namespace shacl-xqy = "shacl-xqy"
-at "src/shacl.xqy";
-import module namespace shacl-apply = "shacl-apply"
-at "src/apply.xqy";
-import module namespace shacl-services = "shacl-services"
-at "src/services.xqy";
+  at "src/shacl.xqy";
 (
 xdmp:set-response-content-type("text/html;charset=UTF-8"),
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -27,6 +21,18 @@ xdmp:set-response-content-type("text/html;charset=UTF-8"),
     <h3>Results</h3>
     <pre>
       {shacl-xqy:sparql("SELECT (ex:SPARQLMultiply(3, 5) AS ?result) WHERE {}")}
+    </pre>
+  </p>
+  <p>
+    <h3>Query</h3>
+    <pre>
+      SELECT (ex:SPARQLGetLabel(ex:SPARQLGetLabel) AS ?result) WHERE &#123; &#125;
+    </pre>
+  </p>
+  <p>
+    <h3>Results</h3>
+    <pre>
+      {shacl-xqy:sparql("SELECT (ex:SPARQLGetLabel(ex:SPARQLGetLabel) AS ?result) WHERE {}")}
     </pre>
   </p>
   <h2>XQuery Functions</h2>

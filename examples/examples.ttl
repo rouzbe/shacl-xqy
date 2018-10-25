@@ -57,6 +57,21 @@ ex:SPARQLMultiply
 WHERE {
 }"""^^xsd:string ;
 .
+ex:SPARQLGetLabel
+  rdf:type sh:SPARQLFunction ;
+  rdfs:label "SPARQLFunction Example - getLabel"^^xsd:string ;
+  sh:parameter [
+      rdf:type sh:Parameter ;
+      sh:path ex:op1 ;
+      sh:class rdfs:Resource ;
+      sh:nodeKind sh:IRI ;
+    ] ;
+  sh:returnType xsd:string ;
+  sh:select """SELECT ?result
+WHERE {
+    ?op1 rdfs:label ?result .
+}"""^^xsd:string ;
+.
 ex:XQueryMultiply
   rdf:type shacl-xqy:XQueryFunction ;
   rdfs:label "XQueryFunction Example - Multiply"^^xsd:string ;
