@@ -6,6 +6,7 @@ import module namespace shacl-xqy = "shacl-xqy"
     at "shacl.xqy";
 
 declare variable $pxMap := getPrefixDeclarations();
+declare variable $pxStr := getPrefixDeclarationsStr();
 
 declare function shacl-services:getFunctionType($func as sem:iri) as sem:iri {
   sparql($shacl-queries:getFunctionType, map:new(map:entry("this", $func))) ! map:get(., "type")
@@ -62,6 +63,10 @@ declare function getPrefixDeclarations() {
       (), ()
     ) ! map:put($pxMap, map:get(., "prefix"), map:get(., "namespace"))
   return $pxMap
+};
+
+declare function getPrefixDeclarationsStr() {
+  fn:string-join((map:keys($pxMap) ! ("PREFIX " || . || ": <" || map:get($pxMap, .) || "> ")))
 };
 
 declare function sparql($query as xs:string, $bindings as map:map) as item()* {
