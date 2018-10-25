@@ -35,7 +35,7 @@ declare function shacl-apply:runFunction($func as sem:iri, $args as item()*) {
       let $bindings := map:new()
       let $_ :=
         for $binding at $index in shacl-services:getFunctionParameters($func) return
-          map:put($bindings, $binding, $args[$index])
+          map:put($bindings, shacl-services:local-name(map:get($binding, "path")), convert-type($args[$index], map:get($binding, "class"), map:get($binding, "nodeKind"), map:get($binding, "datatype")))
       return shacl-services:runSPARQLFunctionSelectQuery($func, $bindings)
 
     case "XQueryFunction"
@@ -47,6 +47,40 @@ declare function shacl-apply:runFunction($func as sem:iri, $args as item()*) {
 
     default return
       ("Error! " || shacl-services:local-name(shacl-services:getFunctionType($func)) || " not supported.")
+};
+
+declare function convert-type($data, $class, $nodeKind, $datatype) {
+  (: TODO nodeKind :)
+  if (fn:empty($class)) then
+    convert-to-datatype($data, $datatype)
+  else
+    sem:iri($data)
+};
+
+declare function convert-to-datatype($data, $datatype) {
+  switch(shacl-services:local-name($datatype))
+    case "boolean"
+      return xs:boolean($data)
+    case "int"
+      return xs:int($data)
+    case "integer"
+      return xs:integer($data)
+    case "long"
+      return xs:long($data)
+    case "float"
+      return xs:float($data)
+    case "decimal"
+      return xs:decimal($data)
+    case "double"
+      return xs:double($data)
+    case "dateTime"
+      return xs:dateTime($data)
+    case "date"
+      return xs:date($data)
+    case "time"
+      return xs:time($data)
+    default
+      return xs:string($data)
 };
 
 declare function eval($funcType as xs:string, $jsFuncName as xs:string, $jsFuncLibrary as xs:string, $args as item()*) {

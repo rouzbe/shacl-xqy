@@ -24,13 +24,22 @@ declare variable $getSPARQLFunctionSelectQuery := "
 ";
 
 declare variable $getFunctionParameters := "
-  SELECT ?parameter ?path
+  SELECT ?parameter ?path ?datatype ?class ?nodeKind
   WHERE {
     ?this a sh:SPARQLFunction ;
       sh:parameter ?parameter .
     ?parameter sh:path ?path .
     OPTIONAL {
       ?parameter sh:order ?o .
+    }
+    OPTIONAL {
+      ?parameter sh:datatype ?datatype .
+    }
+    OPTIONAL {
+      ?parameter sh:class ?class .
+      OPTIONAL {
+        ?parameter sh:nodeKind ?nodeKind .
+      }
     }
     BIND(COALESCE(?o, 0) AS ?order)
   }

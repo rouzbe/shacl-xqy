@@ -21,7 +21,7 @@ declare function shacl-services:runSPARQLFunctionSelectQuery($func as sem:iri, $
 };
 
 declare function shacl-services:getFunctionParameters($func as sem:iri) {
-  sparql($shacl-queries:getFunctionParameters, map:new(map:entry("this", $func))) ! shacl-services:local-name(map:get(., "path"))
+  sparql($shacl-queries:getFunctionParameters, map:new(map:entry("this", $func)))
 };
 
 declare function shacl-services:getJSFunction($func as sem:iri) {
