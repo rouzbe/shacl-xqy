@@ -29,10 +29,8 @@ declare function shacl-services:getJSFunction($func as sem:iri) {
 };
 
 declare function shacl-services:resolve-QName($qname) {
-  if (fn:contains($qname, ":")) then
-    sem:iri(fn:replace($qname, ".*:", map:get($pxMap, substring-before($qname, ":"))))
-  else
-    $qname
+  let $resolved := sem:iri(replace($qname, ".*:", map:get($pxMap, substring-before($qname, ":"))))
+  return if (empty($resolved)) then sem:iri($qname) else $resolved
 };
 
 declare function shacl-services:local-name($item as sem:iri) {
