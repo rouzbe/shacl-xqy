@@ -24,7 +24,7 @@ declare variable $getSPARQLFunctionSelectQuery := "
 ";
 
 declare variable $getFunctionParameters := "
-  SELECT ?parameter ?path ?datatype ?class ?nodeKind
+  SELECT ?parameter ?path ?datatype ?hasClass
   WHERE {
     ?this a sh:SPARQLFunction ;
       sh:parameter ?parameter .
@@ -35,12 +35,11 @@ declare variable $getFunctionParameters := "
     OPTIONAL {
       ?parameter sh:datatype ?datatype .
     }
-    OPTIONAL {
-      ?parameter sh:class ?class .
-      OPTIONAL {
-        ?parameter sh:nodeKind ?nodeKind .
-      }
-    }
+    BIND(
+      EXISTS {
+        ?parameter sh:class ?class .
+      } AS ?hasClass
+    )
     BIND(COALESCE(?o, 0) AS ?order)
   }
   ORDER BY ?order

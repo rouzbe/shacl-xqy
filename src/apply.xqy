@@ -35,7 +35,7 @@ declare function shacl-apply:runFunction($func as sem:iri, $args as item()*) {
       let $bindings := map:new()
       let $_ :=
         for $binding at $index in shacl-services:getFunctionParameters($func) return
-          map:put($bindings, shacl-services:local-name(map:get($binding, "path")), convert-type($args[$index], map:get($binding, "class"), map:get($binding, "nodeKind"), map:get($binding, "datatype")))
+          map:put($bindings, shacl-services:local-name(map:get($binding, "path")), convert-type($args[$index], map:get($binding, "hasClass"), map:get($binding, "datatype")))
       return shacl-services:runSPARQLFunctionSelectQuery($func, $bindings)
 
     case "XQueryFunction"
@@ -49,9 +49,8 @@ declare function shacl-apply:runFunction($func as sem:iri, $args as item()*) {
       ("Error! " || shacl-services:local-name(shacl-services:getFunctionType($func)) || " not supported.")
 };
 
-declare function convert-type($data, $class, $nodeKind, $datatype) {
-  (: TODO nodeKind :)
-  if (fn:empty($class)) then
+declare function convert-type($data, $hasClass, $datatype) {
+  if (fn:empty($hasClass) or $hasClass eq false()) then
     convert-to-datatype($data, $datatype)
   else
     sem:iri($data)
